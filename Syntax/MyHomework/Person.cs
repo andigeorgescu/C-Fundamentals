@@ -8,20 +8,14 @@ namespace MyHomework
 {
     internal class Person
     {
-        protected string LastName, FirstName;
-        protected DateTime? DateOfBirth;
+        protected string lastName, firstName;
+        protected DateTime DateOfBirth;
 
-        public Person()
-        {
-            this.LastName = null;
-            this.FirstName = null;
-            this.DateOfBirth = null;
-        }
 
         public Person(string lastName, string firstName, DateTime dateOfBirth)
         {
-            this.LastName = lastName;
-            this.FirstName = firstName;
+            this.lastName = lastName;
+            this.firstName = firstName;
             this.DateOfBirth = dateOfBirth;
 
         }

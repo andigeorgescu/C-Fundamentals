@@ -15,18 +15,19 @@ namespace MyHomework
             DateTime leaveDate = new DateTime(2015,04,29);
             Employee emp = new Employee("Georgescu", "Andi",dt, dte, 2500, 20);
             //medical,holiday,other
-            Leave leave1 = new Leave(leaveDate,10,"medical");
+            Leave leave1 = new Leave(leaveDate,10,LeaveTypeEnum.Holiday);
             emp.AddNewLeave(leave1);
             emp.DisplayInfo();
 
             Console.WriteLine();
+
             //Exception
-            //Leave leave2 = new Leave(leaveDate,20,"holiday");
-            //emp.AddNewLeave(leave2);
+            Leave leave2 = new Leave(leaveDate,20,LeaveTypeEnum.Holiday);
+            emp.AddNewLeave(leave2);
             
 
             //ListLeave
-            Leave leave3 = new Leave(dte,2,"medical");
+            Leave leave3 = new Leave(dte,2,LeaveTypeEnum.Medical);
             emp.AddNewLeave(leave3);
 
             emp.ShowListLeave();

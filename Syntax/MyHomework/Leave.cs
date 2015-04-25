@@ -1,24 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+public enum LeaveTypeEnum
+{
+    [Description("holiday")] Holiday,
+    [Description("medical")]Medical,
+    [Description("other")]Other
+};
 namespace MyHomework
 {
-    class Leave
+    internal class Leave
     {
-        public DateTime StartingDate;
-        public int Duration;
-        public string LeaveType;
-        public Employee Employee;
+        public DateTime startingDate;
+        public int duration;
+        public LeaveTypeEnum leaveType;
+        public Employee employee;
         
 
-        public Leave(DateTime startingDate, int duration, string leavetype)
+        public Leave(DateTime startingDate, int duration, LeaveTypeEnum leavetype)
         {
-            this.StartingDate = startingDate;
-            this.Duration = duration;
-            this.LeaveType = leavetype;
+            this.startingDate = startingDate;
+            this.duration = duration;
+            this.leaveType = leavetype;
         }
 
     }

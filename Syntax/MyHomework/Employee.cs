@@ -6,70 +6,75 @@ using System.Threading.Tasks;
 
 namespace MyHomework
 {
-    class MyException : ApplicationException
+    public class MyException : Exception
     {
-        public void MyException1()
+        public MyException()
         {
-            Console.WriteLine("Numarul de zile ramase nu poate fi mai mare decat durata concediului");
+            
+        }
+         public MyException(string message)
+            : base(message)
+        {
+        }
+        public MyException(string message, Exception inner)
+            : base(message, inner)
+        {
         }
     }
 
     class Employee:Person
     {
-        private DateTime? DateOfEmployment;
-        private int Salary, AvailableDaysOff;
-
-        public Employee()
-        {
-            this.DateOfEmployment = null;
-            this.Salary = 0;
-            this.AvailableDaysOff = 0;
-        }
+        private DateTime? dateOfEmployment;
+        private int salary, availableDaysOff;
+        List<Leave> ListLeave = new List<Leave>();
 
         public Employee(string lastName, string firstName, DateTime dateOfBirth, DateTime dateOfEmployment, int salary, int availableDaysOff): base(lastName,firstName,dateOfBirth)
         {
-            this.DateOfEmployment = dateOfEmployment;
-            this.Salary = salary;
-            this.AvailableDaysOff = availableDaysOff;
+            this.dateOfEmployment = dateOfEmployment;
+            this.salary = salary;
+            this.availableDaysOff = availableDaysOff;
 
         }
 
+
         public void DisplayInfo()
         {
-            Console.WriteLine(FirstName +" " + LastName +" Salary:" + Salary + " Available Days Off:"+ AvailableDaysOff);
+            Console.WriteLine(firstName +" " + lastName +" Salary:" + salary + " Available Days Off:"+ availableDaysOff);
         }
 
         private void SubstractDays(int numberOfDaysSubstracted)
         {
-            this.AvailableDaysOff -= numberOfDaysSubstracted;
+            this.availableDaysOff -= numberOfDaysSubstracted;
         }
 
-        List<Leave> ListLeave = new List<Leave>();
-        DateTime dt = new DateTime(2015);
+        
+     
 
         public void ShowListLeave()
         {
             foreach(var leave in ListLeave)
             {
-                if(leave.StartingDate.Year == 2015)
-                Console.WriteLine(leave.StartingDate + " " + leave.Duration + " days");
+                if(leave.startingDate.Year == 2015)
+                Console.WriteLine(leave.startingDate + " " + leave.duration + " days");
             }
         }
 
         public void AddNewLeave(Leave leave)
         {
-            leave.Employee = this;
+            leave.employee = this;
             try
             {
-                SubstractDays(leave.Duration);
-                if(this.AvailableDaysOff<0) throw new MyException();
+                if (this.availableDaysOff-leave.duration<0) throw new MyException("Angajatul nu are destule zile libere!Mai are:"+this.availableDaysOff+" zile libere.");
+                SubstractDays(leave.duration);
+                ListLeave.Add(leave);
+                
             }
             catch (MyException ex)
             {
-                
-               ex.MyException1();
+                Console.Write(ex);
+               
             }
-            ListLeave.Add(leave);
+            
 
         }
     }
