@@ -17,7 +17,9 @@ namespace MyHomework
             var leaveDate1 = new DateTime(2015,04,29);
             var leaveDate2 = new DateTime(2015,04,29);
 
-            Employee emp = new Employee("Georgescu", "Andi",date1, date2, 2500, 20);
+            
+
+            Employee emp = new Employee("Georgescu", "Andi",date1, date2, 2500,new availableDaysOff(20,2015));
             //medical,holiday,other
             Leave leave1 = new Leave(leaveDate1,10,LeaveTypeEnum.Holiday);
             emp.AddNewLeave(leave1);

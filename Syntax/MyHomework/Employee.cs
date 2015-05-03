@@ -23,30 +23,69 @@ namespace MyHomework
         }
     }
 
+    public class availableDaysOff
+    {
+
+       
+        public int availableDays
+        {
+            get
+            {
+                return availableDays;
+                
+            }
+            set
+            {
+                availableDays = value;
+                
+            }
+        }
+
+
+        public int workingYear
+        {
+            get
+            {
+                return workingYear;
+                
+            }
+            set
+            {
+                workingYear = value;
+                
+            }
+        }
+        public availableDaysOff(int availableDays,int workingDateTime)
+        {
+            this.availableDays = availableDays;
+            this.workingYear = workingDateTime;
+        }
+    }
+
     class Employee:Person
     {
         private DateTime? dateOfEmployment;
-        private int availableDaysOff;
+        private availableDaysOff daysOff;
         private double salary;
         List<Leave> ListLeave = new List<Leave>();
 
-        public Employee(string lastName, string firstName, DateTime dateOfBirth, DateTime dateOfEmployment, double salary, int availableDaysOff): base(lastName,firstName,dateOfBirth)
+        public Employee(string lastName, string firstName, DateTime dateOfBirth, DateTime dateOfEmployment, double salary, availableDaysOff daysOff): base(lastName,firstName,dateOfBirth)
         {
             this.dateOfEmployment = dateOfEmployment;
             this.salary = salary;
-            this.availableDaysOff = availableDaysOff;
+            this.daysOff = daysOff;
 
         }
 
 
         public void DisplayInfo()
         {
-            Console.WriteLine(firstName +" " + lastName +" Salary:" + salary + " Available Days Off:"+ availableDaysOff);
+            Console.WriteLine(firstName +" " + lastName +" Salary:" + salary + " Available Days Off:"+ daysOff.availableDays);
         }
 
         private void SubstractDays(int numberOfDaysSubstracted)
         {
-            this.availableDaysOff -= numberOfDaysSubstracted;
+            this.daysOff.availableDays -= numberOfDaysSubstracted;
         }
 
         
@@ -75,12 +114,14 @@ namespace MyHomework
             leave.employee = this;
             try
             {
-                if (this.availableDaysOff-leave.duration<0) throw new MyException("Angajatul nu are destule zile libere!Mai are:"+this.availableDaysOff+" zile libere.");
+                if (this.daysOff.availableDays-leave.duration<0 && leave.startingDate.Year==daysOff.workingYear) 
+                    throw new MyException("Angajatul nu are destule zile libere!Mai are:"+this.daysOff.availableDays+" zile libere.");
+                
                 SubstractDays(leave.duration);
 
                 if(ValidateLeave(leave))
                     ListLeave.Add(leave);
-                else Console.WriteLine("Concediul este deja existent");
+                else throw  new MyException("Concediul este deja existent!");
                 
             }
             catch (MyException ex)
