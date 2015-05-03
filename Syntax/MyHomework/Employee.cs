@@ -102,9 +102,17 @@ namespace MyHomework
 
         public bool ValidateLeave(Leave leave)
         {
+            DateTime temp1, temp2;
+            temp1 = leave.startingDate;
             foreach (var lv in ListLeave)
             {
                 if (lv.startingDate==leave.startingDate) return false;
+                temp1.AddDays(leave.duration);
+                temp2 = lv.startingDate;
+                temp2.AddDays(lv.duration);
+                if ((lv.startingDate <= temp1 && lv.startingDate >= leave.startingDate) || 
+                    (lv.startingDate<= leave.startingDate && leave.startingDate<=temp2)) 
+                    return false;
             }
             
             return true;
